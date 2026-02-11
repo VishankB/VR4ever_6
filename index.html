@@ -9,6 +9,7 @@
 body {
     margin: 0;
     height: 100vh;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,11 +17,31 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+/* Floating hearts & sparkles */
+.floating {
+    position: absolute;
+    bottom: -20px;
+    animation: floatUp linear infinite;
+    pointer-events: none;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
+}
+
 /* Card Container */
 .scene {
     width: 320px;
     height: 420px;
     perspective: 1000px;
+    z-index: 2;
 }
 
 /* Card */
@@ -32,12 +53,10 @@ body {
     transition: transform 0.8s;
 }
 
-/* Flip */
 .card.flip {
     transform: rotateY(180deg);
 }
 
-/* Front & Back */
 .card-face {
     position: absolute;
     width: 100%;
@@ -52,14 +71,12 @@ body {
     box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
 
-/* Front */
 .front {
     background: rgba(255,255,255,0.2);
     backdrop-filter: blur(10px);
     color: white;
 }
 
-/* Back */
 .back {
     background: white;
     color: #ff4d6d;
@@ -74,7 +91,7 @@ body {
 
 @keyframes pulse {
     0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+    50% { transform: scale(1.15); }
     100% { transform: scale(1); }
 }
 
@@ -95,19 +112,17 @@ p {
 <div class="scene">
     <div class="card" id="card">
 
-        <!-- Front -->
         <div class="card-face front">
             <div class="hug-emoji" id="hugEmoji">🫂</div>
             <h1>Happy Hug Day</h1>
             <p>Click the hug 🫂</p>
         </div>
 
-        <!-- Back -->
         <div class="card-face back">
             <h1>Sending You a Warm Hug! 🫂❤️</h1>
             <p>
-                A hug speaks louder than words. <br>
-                Stay close, stay loved. 💖
+                A hug is the shortest distance<br>
+                between two hearts 💖
             </p>
         </div>
 
@@ -118,12 +133,33 @@ p {
 const card = document.getElementById("card");
 const emoji = document.getElementById("hugEmoji");
 
+// Flip on emoji click
 emoji.addEventListener("click", function(e) {
     e.stopPropagation();
     card.classList.toggle("flip");
 });
+
+// Create floating hearts & sparkles
+function createFloating() {
+    const element = document.createElement("div");
+    element.classList.add("floating");
+
+    const symbols = ["❤️","💖","✨","💫"];
+    element.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+
+    element.style.left = Math.random() * 100 + "vw";
+    element.style.fontSize = (Math.random() * 20 + 15) + "px";
+    element.style.animationDuration = (Math.random() * 3 + 4) + "s";
+
+    document.body.appendChild(element);
+
+    setTimeout(() => {
+        element.remove();
+    }, 7000);
+}
+
+setInterval(createFloating, 300);
 </script>
 
 </body>
 </html>
-c
