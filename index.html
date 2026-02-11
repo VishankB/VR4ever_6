@@ -1,164 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Hug Day 🫂</title>
+<meta charset="UTF-8" />
+<title>Happy Hug Day Ranu 🫂❤️</title>
 
 <style>
-body {
+  body {
     margin: 0;
     height: 100vh;
     overflow: hidden;
     display: flex;
-    justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #ff758c, #ff7eb3);
-    font-family: 'Poppins', sans-serif;
-}
+    justify-content: center;
+    font-family: 'Segoe UI', sans-serif;
 
-/* Floating hearts & sparkles */
-.floating {
+    background:
+      linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+      url("https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=70");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
+  /* Floating Hearts & Sparkles */
+  .heart {
     position: absolute;
-    bottom: -20px;
-    animation: floatUp linear infinite;
-    pointer-events: none;
-}
+    color: rgba(255, 105, 180, 0.7);
+    font-size: 20px;
+    animation: floatUp 8s linear infinite;
+    z-index: 1;
+  }
 
-@keyframes floatUp {
-    from {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    to {
-        transform: translateY(-110vh);
-        opacity: 0;
-    }
-}
+  @keyframes floatUp {
+    0% { transform: translateY(100vh) scale(0.8); opacity: 1; }
+    100% { transform: translateY(-10vh) scale(1.3); opacity: 0; }
+  }
 
-/* Card Container */
-.scene {
-    width: 320px;
-    height: 420px;
+  .card {
+    width: 350px;
+    height: 480px;
     perspective: 1000px;
     z-index: 2;
-}
+  }
 
-/* Card */
-.card {
+  .inner {
     width: 100%;
     height: 100%;
     position: relative;
+    transition: transform 1s;
     transform-style: preserve-3d;
-    transition: transform 0.8s;
-}
+  }
 
-.card.flip {
+  .card.flip .inner {
     transform: rotateY(180deg);
-}
+  }
 
-.card-face {
+  .front, .back {
     position: absolute;
     width: 100%;
     height: 100%;
+    background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
     backface-visibility: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 20px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-}
-
-.front {
-    background: rgba(255,255,255,0.2);
-    backdrop-filter: blur(10px);
-    color: white;
-}
-
-.back {
-    background: white;
-    color: #ff4d6d;
-    transform: rotateY(180deg);
-}
-
-.hug-emoji {
-    font-size: 80px;
-    cursor: pointer;
-    animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.15); }
-    100% { transform: scale(1); }
-}
-
-h1 {
-    margin-top: 20px;
-}
-
-p {
+    justify-content: center;
+    padding: 30px;
     text-align: center;
-    font-size: 18px;
+  }
+
+  .front h1 {
+    color: #ff4d6d;
+    margin-bottom: 20px;
+  }
+
+  .hug {
+    font-size: 5em;
+    cursor: pointer;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+    100% { transform: scale(1); }
+  }
+
+  .tap {
     margin-top: 15px;
-}
+    font-size: 0.9em;
+    color: #777;
+  }
+
+  .back {
+    transform: rotateY(180deg);
+    box-shadow: 0 0 35px rgba(255, 77, 109, 0.8);
+  }
+
+  .back h2 {
+    color: #ff4d6d;
+    margin-bottom: 15px;
+  }
+
+  .message {
+    font-size: 1.15em;
+    color: #444;
+    line-height: 1.65;
+  }
+
+  .signature {
+    margin-top: 20px;
+    font-style: italic;
+    color: #ff4d6d;
+    font-weight: bold;
+  }
 </style>
 </head>
-
 <body>
 
-<div class="scene">
-    <div class="card" id="card">
+<script>
+  // Floating hearts & sparkles
+  const symbols = ["❤️","💖","✨","💞"];
 
-        <div class="card-face front">
-            <div class="hug-emoji" id="hugEmoji">🫂</div>
-            <h1>Happy Hug Day</h1>
-            <p>Click the hug 🫂</p>
-        </div>
+  for (let i = 0; i < 25; i++) {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+    heart.style.fontSize = (15 + Math.random() * 25) + "px";
+    document.body.appendChild(heart);
+  }
+</script>
 
-        <div class="card-face back">
-            <h1>Sending You a Warm Hug! 🫂❤️</h1>
-            <p>
-                A hug is the shortest distance<br>
-                between two hearts 💖
-            </p>
-        </div>
+<div class="card" id="card">
+  <div class="inner">
 
+    <div class="front">
+      <h1>Happy Hug Day 🫂</h1>
+      <div class="hug" onclick="flipCard()">🫂</div>
+      <div class="tap">Tap the hug</div>
     </div>
+
+    <div class="back">
+      <h2>Come Here, My Love 🫂❤️</h2>
+      <div class="message">
+        Baby ❤️,<br /><br />
+        If I could, I would wrap you<br />
+        in the tightest hug right now.<br />
+        A hug from you fixes everything,<br />
+        calms every storm in my heart.<br /><br />
+        In your arms is where I belong.<br />
+        Today, tomorrow, forever. 🫂❤️<br /><br />
+        Happy Hug Day, my jaan 💞<br />
+        I Love you sooo much ❤️
+      </div>
+      <div class="signature">— Your V ❤️</div>
+    </div>
+
+  </div>
 </div>
 
 <script>
-const card = document.getElementById("card");
-const emoji = document.getElementById("hugEmoji");
-
-// Flip on emoji click
-emoji.addEventListener("click", function(e) {
-    e.stopPropagation();
-    card.classList.toggle("flip");
-});
-
-// Create floating hearts & sparkles
-function createFloating() {
-    const element = document.createElement("div");
-    element.classList.add("floating");
-
-    const symbols = ["❤️","💖","✨","💫"];
-    element.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
-
-    element.style.left = Math.random() * 100 + "vw";
-    element.style.fontSize = (Math.random() * 20 + 15) + "px";
-    element.style.animationDuration = (Math.random() * 3 + 4) + "s";
-
-    document.body.appendChild(element);
-
-    setTimeout(() => {
-        element.remove();
-    }, 7000);
-}
-
-setInterval(createFloating, 300);
+  function flipCard() {
+    document.getElementById("card").classList.add("flip");
+  }
 </script>
 
 </body>
